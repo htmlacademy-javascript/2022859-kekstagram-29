@@ -1,34 +1,27 @@
 // Функция для получения длинны строки
 
-const getLengthString = (string, maxLength) => {
-  if (string.length <= maxLength) {
-    return true;
-  }
+const isLengthString = (string, maxLength) => string.length <= maxLength;
 
-  return false;
-};
-
-getLengthString('проверяемая строка', 20);
-getLengthString('проверяемая строка', 18);
-getLengthString('проверяемая строка', 10);
+isLengthString('проверяемая строка', 20);
+isLengthString('проверяемая строка', 18);
+isLengthString('проверяемая строка', 10);
 
 
 // Функция проверки палидрома
 
-const getPalindrome = function (str) {
+const isPalindrome = (str) => {
+  const normalizeString = str.replaceAll(' ', '').toUpperCase();
   let result = '';
-  const normalizeString = str.toLowerCase().replaceAll(' ', '');
-
-  for (let i = str.length - 1; i >= 0; i--) {
-    result += normalizeString[i];
+  for (let i = normalizeString.length - 1; i >= 0; i--) {
+    result += normalizeString.at(i);
   }
 
-  return normalizeString === result;
+  return result === normalizeString;
 };
 
-getPalindrome('Лёша на полке клопа нашёл ');
-getPalindrome('ДовОд');
-getPalindrome('Кекс');
+isPalindrome('Лёша на полке клопа нашёл');
+isPalindrome('ДовОд');
+isPalindrome('Кекс');
 
 
 //Доп задание
@@ -38,7 +31,7 @@ const getString = (str) => {
   let result = '';
 
   for(const elem of str) {
-    const isNumber = !Number.isNaN(Number.parseInt(elem, str));
+    const isNumber = !Number.isNaN(Number.parseInt(elem, 10));
 
     if (isNumber) {
       result += elem;
