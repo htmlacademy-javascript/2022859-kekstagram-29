@@ -24,6 +24,16 @@ isPalindrome('ДовОд');
 isPalindrome('Кекс');
 
 
+// Палидром через массив
+
+// const checkPalindrome = (string) => {
+//   const normalizedString = string.toLowerCase().replaceAll(' ', '');
+//   const reversedString = normalizedString.split('').reverse().join('');
+//   return normalizedString === reversedString;
+// };
+
+// checkPalindrome('Лёша на полке клопа нашёл');
+
 //Доп задание
 
 const getString = (str) => {
