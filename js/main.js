@@ -85,5 +85,3 @@ const createPost = () => ({
 });
 
 const similarPosts = Array.from({length: POST_COUNT}, createPost);
-
-console.log(similarPosts);
