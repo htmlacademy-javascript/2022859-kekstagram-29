@@ -41,8 +41,6 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-let postIndex = 1;
-
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 function createRandomIdFromRangeGenerator (min, max) {
@@ -60,8 +58,8 @@ function createRandomIdFromRangeGenerator (min, max) {
     return currentValue;
   };
 }
-
-const generateCommentsId = createRandomIdFromRangeGenerator(0, 30);
+const generatePhotosId = createRandomIdFromRangeGenerator(1, 25);
+const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
 const generatePostsId = createRandomIdFromRangeGenerator(1, 25);
 
 // Comments
@@ -78,10 +76,13 @@ const createComment = () => ({
 
 const createPost = () => ({
   id: generatePostsId(),
-  url: `photos/${postIndex++}.jpg`,
+  url: `photos/${generatePhotosId()}.jpg`,
   description: `${getRandomArrayElement(DESCRIPTION)}`,
   likes: getRandomInteger(15, 200),
   comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
 });
 
 const similarPosts = Array.from({length: POST_COUNT}, createPost);
+
+//eslint-disable-next-line
+console.log(similarPosts);
