@@ -83,6 +83,3 @@ const createPost = () => ({
 });
 
 const similarPosts = Array.from({length: POST_COUNT}, createPost);
-
-//eslint-disable-next-line
-console.log(similarPosts);
