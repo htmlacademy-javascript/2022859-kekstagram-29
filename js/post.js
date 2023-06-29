@@ -1,6 +1,6 @@
 import { createPosts } from './data.js';
 //Находим узел шаблона
-const postTemplate = document.querySelector('#picture').content;
+const postTemplate = document.querySelector('#picture').content.querySelector('.picture');
 //Находим узел где будут находиться фото
 const postList = document.querySelector('.pictures');
 //Записываем функию с объектами
@@ -14,9 +14,7 @@ similarPosts.forEach(({ url, description, likes, comments }) => {
   postItem.querySelector('.picture__img').alt = description;//Описание фото
   postItem.querySelector('.picture__likes').textContent = likes;//Число лайков
   postItem.querySelector('.picture__comments').textContent = comments.length;//Число комментариев
-  postListFragment.appendChild(postItem);//Добавляем все в элемент
+  postListFragment.append(postItem);//Добавляем все в элемент
 });
 //Выгружаем в фрагмент
-postList.appendChild(postListFragment);
-
-
+postList.append(postListFragment);
