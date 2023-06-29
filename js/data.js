@@ -1,4 +1,4 @@
-import {createRandomIdFromRangeGenerator, getRandomArrayElement, getRandomInteger} from './util.js';
+import { createRandomIdFromRangeGenerator, getRandomArrayElement, getRandomInteger } from './util.js';
 
 
 // Number of object
@@ -58,9 +58,9 @@ const createPost = () => ({
   url: `photos/${generatePhotosId()}.jpg`,
   description: `${getRandomArrayElement(DESCRIPTION)}`,
   likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
+  comments: Array.from({ length: getRandomInteger(0, 30) }, createComment)
 });
 
-const similarPosts = () => Array.from({length: POST_COUNT}, createPost);
+const createPosts = () => Array.from({ length: POST_COUNT }, createPost);
 
-export {similarPosts};
+export { createPosts };

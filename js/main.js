@@ -1,3 +1,1 @@
-import {similarPosts} from './data.js';
-
-similarPosts();
+import './render-post.js';
