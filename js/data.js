@@ -1,4 +1,4 @@
-import { createRandomIdFromRangeGenerator, getRandomArrayElement, getRandomInteger } from './util.js';
+import { createRandomIdFromRangeGenerator, getRandomArrayElement, getRandomInteger } from './utils.js';
 
 
 // Number of object
@@ -36,10 +36,10 @@ const COMMENTS_MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-
-const generatePhotosId = createRandomIdFromRangeGenerator(1, 25);
 const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
 const generatePostsId = createRandomIdFromRangeGenerator(1, 25);
+
+let photoId = 1;
 
 // Comments
 
@@ -55,7 +55,7 @@ const createComment = () => ({
 
 const createPost = () => ({
   id: generatePostsId(),
-  url: `photos/${generatePhotosId()}.jpg`,
+  url: `photos/${photoId++}.jpg`,
   description: `${getRandomArrayElement(DESCRIPTION)}`,
   likes: getRandomInteger(15, 200),
   comments: Array.from({ length: getRandomInteger(0, 30) }, createComment)

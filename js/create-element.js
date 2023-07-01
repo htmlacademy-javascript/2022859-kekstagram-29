@@ -12,7 +12,7 @@ const createElemet = (tagName, className, text) => {
 
 //Комментарий
 
-const renderComment = (avatar, message, name) => {
+const createComment = (avatar, message, name) => {
   const listItem = createElemet('li', 'social__comment');
   const image = createElemet('img', 'social__picture');
   const text = createElemet('p', 'social__text', message);
@@ -30,4 +30,4 @@ const renderComment = (avatar, message, name) => {
 };
 
 
-export { renderComment };
+export { createComment };

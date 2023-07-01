@@ -1,17 +1,20 @@
-import './render-post.js';
-import { isEscapeKey } from './util.js';
-import { createPosts } from './data.js';
-// import { renderComment } from './create-element.js';// вроде понадобится
 
-const getPosts = document.querySelectorAll('.picture');
+import { isEscapeKey } from './utils.js';
+import { createPosts } from './data.js';
+import { renderThumbnail } from './gallery.js';
+// import { createComment } from './create-element.js';// вроде понадобится
+renderThumbnail(createPosts);
+
+const posts = document.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
-const closeBigPhoto = document.querySelector('.big-picture__cancel');
+const closeModal = document.querySelector('.big-picture__cancel');
 const bigPictureImg = document.querySelector('.big-picture__img img');
 const likeCount = document.querySelector('.likes-count');
 const commentCount = document.querySelector('.comments-count');
 const blockCount = document.querySelector('.social__comment-count');// Пока что нужно(временное скрытие)
-const loadBtn = document.querySelector('.comments-loader');/// Пока что нужно(временное скрытие)
+const loadButton = document.querySelector('.comments-loader');/// Пока что нужно(временное скрытие)
 const commentsDescription = document.querySelector('.social__caption');
+// const commentsList = document.querySelector('.social__list');
 
 //Закрытие модального окна
 const closePictureModal = () => {
@@ -26,17 +29,24 @@ const onDocumentKey = (evt) => {
   }
 };// еще раз посмотреть про эту функцию
 
+
+//комент
+
+// const renderComment = () => {
+//   commentsList.innerHTML = '';
+// };
+
 //Открытие модального окна
 const openPictureModal = () => {
   document.body.classList.add('modal-open');// добавляем класс body
   bigPicture.classList.remove('hidden');//Удаляем модальному окно класс
   document.addEventListener('keydown', onDocumentKey);//ESC
   blockCount.classList.add('hidden');//Временное скрытие
-  loadBtn.classList.add('hidden');//Временное скрытие
-  closeBigPhoto.addEventListener('click', closePictureModal);//Добавляем закрытие по нажатию на крестик
+  loadButton.classList.add('hidden');//Временное скрытие
+  closeModal.addEventListener('click', closePictureModal);//Добавляем закрытие по нажатию на крестик
 };
 
-closeBigPhoto.addEventListener('keydown', () => {
+closeModal.addEventListener('keydown', () => {
   if (isEscapeKey()) {
     closePictureModal();
   }
@@ -45,21 +55,18 @@ closeBigPhoto.addEventListener('keydown', () => {
 //Создаем модальное окно (наполняем)
 const createPictureModal = (postId) => {
   const currentPost = createPosts.find((photo) => photo.id === Number(postId));// Выдергиваем элемент из массива с данными
-  const {url, likes, comments, description} = currentPost;//Записываем данные
-  bigPictureImg.src = url;//Передаем
-  likeCount.textContent = likes;//Передаем
-  commentCount.textContent = comments.length;//Передаем
-  commentsDescription.textContent = description;//Передаем
+  const {url, likes, comments, description} = currentPost;
+  bigPictureImg.src = url;
+  likeCount.textContent = likes;
+  commentCount.textContent = comments.length;
+  commentsDescription.textContent = description;
 };
 
 //Перебираем массив с данными
-getPosts.forEach((item) => {
-  //Добавляем события
+posts.forEach((item) => {
   item.addEventListener('click', (evt) => {
-    const itemId = evt.currentTarget.id;// ищем id элемента по которому кликнул
-    openPictureModal();//открываем модалку
-    createPictureModal(itemId);//Передаем id в функцию создания окна
+    const currenPostId = evt.currentTarget.id;
+    openPictureModal();
+    createPictureModal(currenPostId);
   });
 });
-
-
