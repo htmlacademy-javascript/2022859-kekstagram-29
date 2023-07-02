@@ -36,30 +36,43 @@ const COMMENTS_MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
-const generatePostsId = createRandomIdFromRangeGenerator(1, 25);
+const getCommentText = () => Array.from({length: getRandomInteger(1, 3)}, () => getRandomArrayElement(COMMENTS_MESSAGE)).join(' ');//Позаимствовал в дс
 
-let photoId = 1;
 
 // Comments
 
-const createComment = () => ({
-  id: generateCommentsId(),
-  avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
-  message: `${getRandomArrayElement(COMMENTS_MESSAGE)}`,
-  name: `${getRandomArrayElement(NAMES)}`,
-});
+// const createComment = () => ({
+//   id: generateCommentsId(),
+//   avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
+//   message: `${getCommentText()}`,
+//   name: `${getRandomArrayElement(NAMES)}`,
+// });
 
+const createComment = () => {
+  const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
+
+  return {
+    id: generateCommentsId(),
+    avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
+    message: `${getCommentText()}`,
+    name: `${getRandomArrayElement(NAMES)}`
+  };
+};
 
 // Post
 
-const createPost = () => ({
-  id: generatePostsId(),
-  url: `photos/${photoId++}.jpg`,
-  description: `${getRandomArrayElement(DESCRIPTION)}`,
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({ length: getRandomInteger(0, 30) }, createComment)
-});
+let photoId = 1;
+
+const createPost = () => {
+  const generatePostsId = createRandomIdFromRangeGenerator(1, 25);
+  return {
+    id: generatePostsId(),
+    url: `photos/${photoId++}.jpg`,
+    description: `${getRandomArrayElement(DESCRIPTION)}`,
+    likes: getRandomInteger(15, 200),
+    comments: Array.from({ length: getRandomInteger(0, 30) }, createComment)
+  };
+};
 
 const createPosts = Array.from({ length: POST_COUNT }, createPost);
 

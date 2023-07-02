@@ -25,7 +25,6 @@ const createComment = (avatar, message, name) => {
   image.style.heigth = `${imageSize}px`;
 
   listItem.append(image, text);
-
   return listItem;
 };
 
