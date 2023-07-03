@@ -11,11 +11,10 @@ const closeModal = bigPicture.querySelector('.big-picture__cancel');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likeCount = bigPicture.querySelector('.likes-count');
 const commentCount = bigPicture.querySelector('.comments-count');
-// const blockCount = bigPicture.querySelector('.social__comment-count');// Пока что нужно(временное скрытие)
-// const loadButton = bigPicture.querySelector('.comments-loader');/// Пока что нужно(временное скрытие)
+const blockCount = bigPicture.querySelector('.social__comment-count');// Пока что нужно(временное скрытие)
+const loadButton = bigPicture.querySelector('.comments-loader');// Пока что нужно(временное скрытие)
 const commentsDescription = bigPicture.querySelector('.social__caption');
 const commentsList = bigPicture.querySelector('.social__comments');
-
 //Закрытие модального окна
 const closePictureModal = () => {
   document.body.classList.remove('modal-open');
@@ -31,9 +30,9 @@ const onDocumentKey = (evt) => {
 
 
 //комент
-
 const renderComment = (comment) => {
   commentsList.innerHTML = '';
+
   comment.forEach(({ avatar, message, name }) => {
     const commentElement = createComment(avatar, message, name);
     commentsList.append(commentElement);
@@ -45,8 +44,8 @@ const openPictureModal = () => {
   document.body.classList.add('modal-open');// добавляем класс body
   bigPicture.classList.remove('hidden');//Удаляем модальному окно класс
   document.addEventListener('keydown', onDocumentKey);//ESC
-  // blockCount.classList.add('hidden');//Временное скрытие
-  // loadButton.classList.add('hidden');//Временное скрытие
+  blockCount.classList.add('hidden');//Временное скрытие
+  loadButton.classList.add('hidden');//Временное скрытие
   closeModal.addEventListener('click', closePictureModal);//Добавляем закрытие по нажатию на крестик
 };
 
