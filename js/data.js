@@ -47,32 +47,25 @@ const getCommentText = () => Array.from({length: getRandomInteger(1, 3)}, () => 
 //   message: `${getCommentText()}`,
 //   name: `${getRandomArrayElement(NAMES)}`,
 // });
-
-const createComment = () => {
-  const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
-
-  return {
-    id: generateCommentsId(),
-    avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
-    message: `${getCommentText()}`,
-    name: `${getRandomArrayElement(NAMES)}`
-  };
-};
+const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
+const createComment = () => ({
+  id: generateCommentsId(),
+  avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
+  message: `${getCommentText()}`,
+  name: `${getRandomArrayElement(NAMES)}`
+});
 
 // Post
 
 let photoId = 1;
-
-const createPost = () => {
-  const generatePostsId = createRandomIdFromRangeGenerator(1, 25);
-  return {
-    id: generatePostsId(),
-    url: `photos/${photoId++}.jpg`,
-    description: `${getRandomArrayElement(DESCRIPTION)}`,
-    likes: getRandomInteger(15, 200),
-    comments: Array.from({ length: getRandomInteger(0, 30) }, createComment)
-  };
-};
+const generatePostsId = createRandomIdFromRangeGenerator(1, 25);
+const createPost = () => ({
+  id: generatePostsId(),
+  url: `photos/${photoId++}.jpg`,
+  description: `${getRandomArrayElement(DESCRIPTION)}`,
+  likes: getRandomInteger(15, 200),
+  comments: Array.from({ length: getRandomInteger(0, 30) }, createComment)
+});
 
 const createPosts = Array.from({ length: POST_COUNT }, createPost);
 
