@@ -1,2 +1,3 @@
-import './gallery.js';
+import { renderThumbnail } from './gallery.js';
 import './modal.js';
+renderThumbnail();

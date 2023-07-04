@@ -1,11 +1,9 @@
 
 import { isEscapeKey } from './utils.js';
 import { createPosts } from './data.js';
-import { renderThumbnail } from './gallery.js';
 import { createComment } from './create-element.js';
-renderThumbnail(createPosts);
 
-const posts = document.querySelectorAll('.picture');
+const posts = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const closeModal = bigPicture.querySelector('.big-picture__cancel');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -15,10 +13,12 @@ const blockCount = bigPicture.querySelector('.social__comment-count');// Пок�
 const loadButton = bigPicture.querySelector('.comments-loader');// Пока что нужно(временное скрытие)
 const commentsDescription = bigPicture.querySelector('.social__caption');
 const commentsList = bigPicture.querySelector('.social__comments');
+
 //Закрытие модального окна
 const closePictureModal = () => {
   document.body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
+  closeModal.removeEventListener('click', closePictureModal);
 };
 
 //ESC
@@ -27,10 +27,23 @@ const onDocumentKey = (evt) => {
     closePictureModal();
   }
 };// еще раз посмотреть про эту функцию
+const COUNT_LOAD = 5;
+const renderLoad = (items) => {
+  if (items.length > COUNT_LOAD) {
+    loadButton.classList.remove('hidden');
+    // loadButton.addEventListener('click', cb);
+  } else {
+    loadButton.classList.add('hidden');
+    // loadButton.removeEventListener('click', cb);
+  }
+};
 
+// const renderListCount = (items) => {
+//   items.slice(0, COUNT_LOAD);
+// };
 
 //комент
-const renderComment = (comment) => {
+const renderComments = (comment) => {
   commentsList.innerHTML = '';
 
   comment.forEach(({ avatar, message, name }) => {
@@ -45,32 +58,29 @@ const openPictureModal = () => {
   bigPicture.classList.remove('hidden');//Удаляем модальному окно класс
   document.addEventListener('keydown', onDocumentKey);//ESC
   blockCount.classList.add('hidden');//Временное скрытие
-  loadButton.classList.add('hidden');//Временное скрытие
   closeModal.addEventListener('click', closePictureModal);//Добавляем закрытие по нажатию на крестик
 };
 
-closeModal.addEventListener('keydown', () => {
-  if (isEscapeKey()) {
-    closePictureModal();
-  }
-});// закрытие на ESC
-
 //Создаем модальное окно (наполняем)
-const createPictureModal = (postId) => {
-  const currentPost = createPosts.find((photo) => photo.id === Number(postId));// Выдергиваем элемент из массива с данными
-  const {url, likes, comments, description} = currentPost;
+const createPictureModal = (postData) => {
+  const {url, likes, comments, description} = postData;
   bigPictureImg.src = url;
   likeCount.textContent = likes;
   commentCount.textContent = comments.length;
   commentsDescription.textContent = description;
-  renderComment(comments);
-};
+  renderComments(comments);
+  renderLoad(comments);
 
-//Перебираем массив с данными
-posts.forEach((item) => {
-  item.addEventListener('click', (evt) => {
-    const currenPostId = evt.currentTarget.id;
-    openPictureModal();
-    createPictureModal(currenPostId);
-  });
+  openPictureModal(postData);
+};
+posts.addEventListener('click', (evt) => {
+  const target = evt.target.closest('.picture');
+  let postId;
+
+  if (target !== null) {
+    postId = Number(target.dataset.id);
+    const postData = createPosts.find((post) => post.id === postId);
+
+    createPictureModal(postData);
+  }
 });

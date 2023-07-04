@@ -1,3 +1,4 @@
+import { createPosts } from './data.js';
 const postTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -5,7 +6,7 @@ const container = document.querySelector('.pictures');
 
 const createThumbnail = ({ id, url, description, likes, comments }) => {
   const post = postTemplate.cloneNode(true);
-  post.id = id;
+  post.setAttribute('data-id', id);
   post.querySelector('.picture__img').src = url;//Добавляем ссылку на фото
   post.querySelector('.picture__img').alt = description;//Описание фото
   post.querySelector('.picture__likes').textContent = likes;//Число лайков
@@ -22,4 +23,7 @@ const renderThumbnail = (pictures) => {
   });
   container.append(fragment);
 };
+
+renderThumbnail(createPosts);
+
 export { renderThumbnail };
