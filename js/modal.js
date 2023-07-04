@@ -1,6 +1,6 @@
 
 import { isEscapeKey } from './utils.js';
-import { createPosts } from './data.js';
+import { postsData } from './data.js';
 import { createComment } from './create-element.js';
 
 const posts = document.querySelector('.pictures');
@@ -73,14 +73,17 @@ const createPictureModal = (postData) => {
 
   openPictureModal(postData);
 };
+
+
 posts.addEventListener('click', (evt) => {
   const target = evt.target.closest('.picture');
   let postId;
 
   if (target !== null) {
     postId = Number(target.dataset.id);
-    const postData = createPosts.find((post) => post.id === postId);
+    const postData = postsData.find((post) => post.id === postId);
 
     createPictureModal(postData);
   }
 });
+

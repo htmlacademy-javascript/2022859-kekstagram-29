@@ -1,4 +1,3 @@
-import { createPosts } from './data.js';
 const postTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -23,7 +22,5 @@ const renderThumbnail = (pictures) => {
   });
   container.append(fragment);
 };
-
-renderThumbnail(createPosts);
 
 export { renderThumbnail };
