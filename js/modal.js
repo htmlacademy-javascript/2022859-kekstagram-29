@@ -5,7 +5,6 @@ import { createPictureModal } from './gallery-modal.js';
 const posts = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const closeModal = bigPicture.querySelector('.big-picture__cancel');
-const blockCount = document.querySelector('.social__comment-count');
 
 const closePictureModal = () => {
   bigPicture.classList.add('hidden');
@@ -24,7 +23,6 @@ const onDocumentKey = (evt) => {
 const openPictureModal = () => {
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKey);
-  blockCount.classList.add('hidden');
   closeModal.addEventListener('click', closePictureModal);
 
   document.body.classList.add('modal-open');

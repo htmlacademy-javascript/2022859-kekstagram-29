@@ -7,8 +7,9 @@ const commentCount = document.querySelector('.comments-count');
 const commentsDescription = document.querySelector('.social__caption');
 const loadButton = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
+const blockCount = document.querySelector('.social__comment-count');
 const COMMENTS_TO_SHOW = 5;
-// let currentComments = [];
+let currentComments = [];
 const renderComments = (commentsData) => {
   commentsList.innerHTML = '';
 
@@ -16,6 +17,8 @@ const renderComments = (commentsData) => {
     const commentElement = createComment(avatar, message, name);
     commentsList.append(commentElement);
   });
+  currentComments = commentsData.slice(0, COMMENTS_TO_SHOW);
+  blockCount.textContent = `${currentComments.length} из ${commentsData.length} комментариев`;
 };
 
 const renderLoad = (items) => {
