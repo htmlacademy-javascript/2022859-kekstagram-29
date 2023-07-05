@@ -6,16 +6,17 @@ const posts = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const closeModal = bigPicture.querySelector('.big-picture__cancel');
 
+
 const closePictureModal = () => {
   bigPicture.classList.add('hidden');
   closeModal.removeEventListener('click', closePictureModal);
-
 
   document.body.classList.remove('modal-open');
 };
 
 const onDocumentKey = (evt) => {
   if (isEscapeKey(evt)) {
+    evt.preventDefault();
     closePictureModal();
   }
 };
