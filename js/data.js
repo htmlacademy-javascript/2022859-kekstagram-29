@@ -1,4 +1,4 @@
-import { createRandomIdFromRangeGenerator, getRandomArrayElement, getRandomInteger } from './util.js';
+import { createRandomIdFromRangeGenerator, getRandomArrayElement, getRandomInteger } from './utils.js';
 
 
 // Number of object
@@ -36,31 +36,37 @@ const COMMENTS_MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
+const getCommentText = () => Array.from({length: getRandomInteger(1, 3)}, () => getRandomArrayElement(COMMENTS_MESSAGE)).join(' ');//Позаимствовал в дс
 
-const generatePhotosId = createRandomIdFromRangeGenerator(1, 25);
-const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
-const generatePostsId = createRandomIdFromRangeGenerator(1, 25);
 
 // Comments
 
+// const createComment = () => ({
+//   id: generateCommentsId(),
+//   avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
+//   message: `${getCommentText()}`,
+//   name: `${getRandomArrayElement(NAMES)}`,
+// });
+const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
 const createComment = () => ({
   id: generateCommentsId(),
   avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
-  message: `${getRandomArrayElement(COMMENTS_MESSAGE)}`,
-  name: `${getRandomArrayElement(NAMES)}`,
+  message: `${getCommentText()}`,
+  name: `${getRandomArrayElement(NAMES)}`
 });
-
 
 // Post
 
+let photoId = 1;
+const generatePostsId = createRandomIdFromRangeGenerator(1, 25);
 const createPost = () => ({
   id: generatePostsId(),
-  url: `photos/${generatePhotosId()}.jpg`,
+  url: `photos/${photoId++}.jpg`,
   description: `${getRandomArrayElement(DESCRIPTION)}`,
   likes: getRandomInteger(15, 200),
   comments: Array.from({ length: getRandomInteger(0, 30) }, createComment)
 });
 
-const createPosts = () => Array.from({ length: POST_COUNT }, createPost);
+const postsData = Array.from({ length: POST_COUNT }, createPost);
 
-export { createPosts };
+export { postsData };
