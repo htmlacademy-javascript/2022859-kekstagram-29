@@ -1,5 +1,6 @@
 import { openPictureModal } from './modal.js';
-import { createComment } from './create-element.js';
+// import { createComment } from './create-element.js';
+import { createElemet } from './utils.js';
 
 const bigPictureImg = document.querySelector('.big-picture__img img');
 const likeCount = document.querySelector('.likes-count');
@@ -9,25 +10,51 @@ const loadButton = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
 const blockCount = document.querySelector('.social__comment-count');
 const COMMENTS_TO_SHOW = 5;
-let currentComments = [];
-const renderComments = (commentsData) => {
-  commentsList.innerHTML = '';
+// let currentComments = [];
 
+
+const createComment = (avatar, message, name) => {
+  const listItem = createElemet('li', 'social__comment');
+  const image = createElemet('img', 'social__picture');
+  const text = createElemet('p', 'social__text', message);
+
+  const imageSize = 35;
+
+  image.src = avatar;
+  image.alt = name;
+  image.style.width = `${imageSize}px`;
+  image.style.heigth = `${imageSize}px`;
+
+  listItem.append(image, text);
+  return listItem;
+};
+
+const renderComments = (commentsData) => {
+  const fragment = document.createDocumentFragment();
   commentsData.forEach(({ avatar, message, name }) => {
     const commentElement = createComment(avatar, message, name);
-    commentsList.append(commentElement);
+    fragment.append(commentElement);
   });
-  currentComments = commentsData.slice(0, COMMENTS_TO_SHOW);
-  blockCount.textContent = `${currentComments.length} из ${commentsData.length} комментариев`;
+
+  return fragment;
 };
 
-const renderLoad = (items) => {
-  if (items.length > COMMENTS_TO_SHOW) {
-    loadButton.classList.remove('hidden');
-  } else {
-    loadButton.classList.add('hidden');
-  }
+const initFirstComments = (comments) => {
+  const showComments = comments.slice(0, COMMENTS_TO_SHOW);
+  const renderFirstComments = renderComments(showComments);
+
+
+  commentsList.append(renderFirstComments);
+
+  loadButton.addEventListener('click', (items) => {
+    commentsList.append(...items).map(renderComments);
+  });
+  blockCount.firstChild.textContent = `${showComments.length} из `;
 };
+
+const loadMore = () => {
+
+}
 
 
 const createPictureModal = (postData) => {
@@ -36,8 +63,9 @@ const createPictureModal = (postData) => {
   likeCount.textContent = likes;
   commentCount.textContent = comments.length;
   commentsDescription.textContent = description;
-  renderComments(comments);
-  renderLoad(comments);
+
+  commentsList.innerHTML = '';
+  initFirstComments(comments);
 
   openPictureModal(postData);
 };

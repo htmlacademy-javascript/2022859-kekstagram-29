@@ -26,4 +26,16 @@ function createRandomIdFromRangeGenerator (min, max) {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { createRandomIdFromRangeGenerator, getRandomArrayElement, getRandomInteger, isEscapeKey };
+const createElemet = (tagName, className, text) => {
+  const element = document.createElement(tagName);
+  element.classList.add(className);
+
+  if (text) {
+    element.textContent = text;
+  }
+
+  return element;
+};
+
+
+export { createRandomIdFromRangeGenerator, getRandomArrayElement, getRandomInteger, isEscapeKey, createElemet };

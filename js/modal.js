@@ -6,20 +6,14 @@ const posts = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const closeModal = bigPicture.querySelector('.big-picture__cancel');
 
-
 const closePictureModal = () => {
   bigPicture.classList.add('hidden');
   closeModal.removeEventListener('click', closePictureModal);
 
   document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKey);
 };
 
-const onDocumentKey = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closePictureModal();
-  }
-};
 
 const openPictureModal = () => {
   bigPicture.classList.remove('hidden');
@@ -28,6 +22,13 @@ const openPictureModal = () => {
 
   document.body.classList.add('modal-open');
 };
+
+function onDocumentKey (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closePictureModal();
+  }
+}
 
 posts.addEventListener('click', (evt) => {
   const target = evt.target.closest('.picture');
