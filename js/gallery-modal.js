@@ -39,7 +39,7 @@ const renderComments = (commentsData) => {
 };
 
 
-const initLoadMoreComments = (comments) => {
+const initPartComments = (comments) => {
   const toShowComments = comments.slice(0, COMMENTS_TO_SHOW,);
   const renderFirstComments = renderComments(toShowComments);
 
@@ -71,7 +71,7 @@ const createPictureModal = (postData) => {
   commentsList.innerHTML = '';
   currentComments = comments;
   moreButton.addEventListener('click', loadMore);
-  initLoadMoreComments(comments);
+  initPartComments (comments);
   openPictureModal(postData);
 };
 
