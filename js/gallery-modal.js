@@ -43,7 +43,7 @@ const initMoreComments = () => {
   }
 
   document.querySelector('.comment-show').textContent = currentComments.length;
-  document.querySelector('.comment-show').textContent = commentsList.children.length;
+  document.querySelector('.comment-count').textContent = commentsList.children.length;
 };
 
 const onMoreButtonClick = () => initMoreComments();
@@ -77,4 +77,4 @@ const createPictureModal = (data) => {
   onLinkClick(data);
 };
 
-export { createPictureModal };
+export { createPictureModal, onMoreButtonClick, moreButton };

@@ -1,6 +1,6 @@
 import { isEscapeKey } from './utils.js';
 import { postsData } from './data.js';
-import { createPictureModal } from './gallery-modal.js';
+import { createPictureModal, moreButton, onMoreButtonClick } from './gallery-modal.js';
 
 const posts = document.querySelector('.pictures');
 const modal = document.querySelector('.big-picture');
@@ -9,6 +9,8 @@ const closeModal = modal.querySelector('.big-picture__cancel');
 const onCloseButtonClick = () => {
   modal.classList.add('hidden');
   closeModal.removeEventListener('click', onCloseButtonClick);
+  moreButton.removeEventListener('click', onMoreButtonClick);
+
 
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKey);
