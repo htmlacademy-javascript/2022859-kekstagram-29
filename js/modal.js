@@ -1,5 +1,4 @@
 import { isEscapeKey } from './utils.js';
-import { postsData } from './data.js';
 import { createPictureModal, moreButton, onMoreButtonClick } from './gallery-modal.js';
 
 const posts = document.querySelector('.pictures');
@@ -31,17 +30,19 @@ function onDocumentKey (evt) {
   }
 }
 
+const renderGallery = (picture) => {
+  posts.addEventListener('click', (evt) => {
+    const target = evt.target.closest('.picture');
+    let postId;
+    if (target !== null) {
+      postId = Number(target.dataset.id);
+      const postData = picture.find((post) => post.id === postId);
 
-posts.addEventListener('click', (evt) => {
-  const target = evt.target.closest('.picture');
-  let postId;
 
-  if (target !== null) {
-    postId = Number(target.dataset.id);
-    const postData = postsData.find((post) => post.id === postId);
+      createPictureModal(postData);
+    }
+  });
+};
 
-    createPictureModal(postData);
-  }
-});
 
-export { onLinkClick, modal };
+export { onLinkClick, renderGallery };

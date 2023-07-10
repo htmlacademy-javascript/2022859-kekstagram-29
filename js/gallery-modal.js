@@ -1,8 +1,14 @@
-import { onLinkClick, modal } from './modal.js';
+import { onLinkClick } from './modal.js';
 import { createElemet } from './utils.js';
 
+const modalImage = document.querySelector('.big-picture__img img');
+const modalLikesCount = document.querySelector('.likes-count');
+const modalCommentsCount = document.querySelector('.comments-count');
+const modalDescription = document.querySelector('.social__caption');
 const moreButton = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
+const showComment = document.querySelector('.comment-show');
+const countComment = document.querySelector('.comments-count');
 const COMMENTS_TO_SHOW = 5;
 let currentComments = [];
 
@@ -42,8 +48,8 @@ const initMoreComments = () => {
     moreButton.classList.add('hidden');
   }
 
-  document.querySelector('.comment-show').textContent = currentComments.length;
-  document.querySelector('.comment-count').textContent = commentsList.children.length;
+  showComment.textContent = commentsList.children.length;
+  countComment.textContent = currentComments.length;
 };
 
 const onMoreButtonClick = () => initMoreComments();
@@ -60,21 +66,21 @@ const initPartComments = (comments) => {
   }
 
   commentsList.append(renderFirstComments);
-  document.querySelector('.comment-show').textContent = toShowComments.length;
-  document.querySelector('.comments-count').textContent = comments.length;
+  showComment.textContent = toShowComments.length;
+  countComment.textContent = comments.length;
 };
 
 const createPictureModal = (data) => {
   const {url, likes, comments, description} = data;
-  modal.querySelector('.big-picture__img img').src = url;
-  modal.querySelector('.likes-count').textContent = likes;
-  modal.querySelector('.comments-count').textContent = comments.length;
-  modal.querySelector('.social__caption').textContent = description;
+  modalImage.src = url;
+  modalLikesCount.textContent = likes;
+  modalCommentsCount.textContent = comments.length;
+  modalDescription .textContent = description;
 
   commentsList.innerHTML = '';
   currentComments = comments;
-  initPartComments (comments);
+  initPartComments(comments);
   onLinkClick(data);
 };
 
-export { createPictureModal, onMoreButtonClick, moreButton };
+export { createPictureModal, onMoreButtonClick, moreButton};
