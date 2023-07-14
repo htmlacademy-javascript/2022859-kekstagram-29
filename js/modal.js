@@ -37,6 +37,7 @@ const renderGallery = (picture) => {
     if (target !== null) {
       postId = Number(target.dataset.id);
       const postData = picture.find((post) => post.id === postId);
+      evt.preventDefault();
 
 
       createPictureModal(postData);
