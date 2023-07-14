@@ -60,8 +60,8 @@ const addEffect = () => {
 
     noUiSlider.create(sliderElement, {
       range: {
-        'min': effect.min,
-        'max': effect.max
+        min: effect.min,
+        max: effect.max
       },
       start: effect.max,
       step: effect.step,
