@@ -1,45 +1,48 @@
 import { isEscapeKey } from './utils.js';
-import { postsData } from './data.js';
-import { createPictureModal } from './gallery-modal.js';
+import { createPictureModal, moreButton, onMoreButtonClick } from './gallery-modal.js';
 
 const posts = document.querySelector('.pictures');
 const modal = document.querySelector('.big-picture');
 const closeModal = modal.querySelector('.big-picture__cancel');
 
-const closePictureModal = () => {
+const onCloseButtonClick = () => {
   modal.classList.add('hidden');
-  closeModal.removeEventListener('click', closePictureModal);
+  closeModal.removeEventListener('click', onCloseButtonClick);
+  moreButton.removeEventListener('click', onMoreButtonClick);
+
 
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKey);
 };
 
 
-const openPictureModal = () => {
+const onLinkClick = () => {
   modal.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKey);
-  closeModal.addEventListener('click', closePictureModal);
+  closeModal.addEventListener('click', onCloseButtonClick);
 
   document.body.classList.add('modal-open');
 };
 
 function onDocumentKey (evt) {
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closePictureModal();
+    onCloseButtonClick();
   }
 }
 
-posts.addEventListener('click', (evt) => {
-  const target = evt.target.closest('.picture');
-  let postId;
+const renderGallery = (picture) => {
+  posts.addEventListener('click', (evt) => {
+    const target = evt.target.closest('.picture');
+    let postId;
+    if (target !== null) {
+      postId = Number(target.dataset.id);
+      const postData = picture.find((post) => post.id === postId);
+      evt.preventDefault();
 
-  if (target !== null) {
-    postId = Number(target.dataset.id);
-    const postData = postsData.find((post) => post.id === postId);
+      createPictureModal(postData);
+    }
+  });
+};
 
-    createPictureModal(postData);
-  }
-});
 
-export { openPictureModal, modal };
+export { onLinkClick, renderGallery };
