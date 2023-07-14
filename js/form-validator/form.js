@@ -12,10 +12,27 @@ const hashtag = form.querySelector('.text__hashtags');
 const description = form.querySelector('.text__description');
 const VALID_SYMBOLS = /^#[a-zа-я0-9]{1,19}$/i;
 const MAX_COUNT_HASHTAGS = 5;
-const ErrorText = {
-  UNIQUE: 'Hashtags should not be repeated',
-  LENGTH: `Maximum number of hashtags ${MAX_COUNT_HASHTAGS}`,
-  SYMBOL: 'The hashtag should start with the sign #'
+const normalizeString = (str) => str.trim().split(' ').filter((tag) => Boolean(tag.length));
+const VALIDATOR_PARAMS = {
+  hashtagSymbols: {
+    isValid: (value) => normalizeString(value).every((tag) => VALID_SYMBOLS.test(tag)),
+    errorText: 'The hashtag should start with the sign #'
+  },
+  hashtagUnique: {
+    isValid: (value) => {
+      const uniqHashtags = normalizeString(value).map((tag) => tag.toLowerCase());
+      return uniqHashtags.length === new Set(uniqHashtags).size;
+    },
+    errorText: 'Hashtags should not be repeated'
+  },
+  hashtagLength: {
+    isValid:  (value) => normalizeString(value).length <= MAX_COUNT_HASHTAGS,
+    errorText: `Maximum number of hashtags ${MAX_COUNT_HASHTAGS}`
+  },
+  descriptionLength: {
+    isValid: (value) => value.length <= 140,
+    errorText: 'The maximum comment length is 140 characters'
+  }
 };
 
 
@@ -24,42 +41,33 @@ const pristine = new Pristine(form, {
   errorTextParent: 'img-upload__field-wrapper'
 });
 
-const normalizeString = (str) => str.trim().split(' ').filter((tag) => Boolean(tag.length));
-const isValidHashtag = (value) => normalizeString(value).every((tag) => VALID_SYMBOLS.test(tag));
-const isValidCountHashtags = (value) => normalizeString(value).length <= MAX_COUNT_HASHTAGS;
-const isValidDescription = (value) => value.length <= 140;
-const isValidUniqueHashtag = (value) => {
-  const uniqHashtags = normalizeString(value).map((tag) => tag.toLowerCase());
-  return uniqHashtags.length === new Set(uniqHashtags).size;
-};
-
 pristine.addValidator(
   description,
-  isValidDescription,
-  'The maximum comment length is 140 characters'
+  VALIDATOR_PARAMS.descriptionLength.isValid,
+  VALIDATOR_PARAMS.descriptionLength.errorText
 );
 
 
 pristine.addValidator(
   hashtag,
-  isValidUniqueHashtag,
-  ErrorText.UNIQUE,
+  VALIDATOR_PARAMS.hashtagUnique.isValid,
+  VALIDATOR_PARAMS.hashtagUnique.errorText,
   1,
   true
 );
 
 pristine.addValidator(
   hashtag,
-  isValidHashtag,
-  ErrorText.SYMBOL,
+  VALIDATOR_PARAMS.hashtagSymbols.isValid,
+  VALIDATOR_PARAMS.hashtagSymbols.errorText,
   2,
   true
 );
 
 pristine.addValidator(
   hashtag,
-  isValidCountHashtags,
-  ErrorText.LENGTH,
+  VALIDATOR_PARAMS.hashtagLength.isValid,
+  VALIDATOR_PARAMS.hashtagLength.errorText,
   3,
   true
 );
@@ -103,7 +111,6 @@ const cancellationOfSending = () => {
   });
 };
 
-
 function onDocumentKey (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -112,14 +119,10 @@ function onDocumentKey (evt) {
   }
 }
 
-const onCloseModalPreview = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-  onCloseButtonClick();
-};
-
 const initImage = () => {
-  form.addEventListener('submit', onCloseModalPreview);
+  form.addEventListener('submit', () => {
+    pristine.validate();
+  });
   input.addEventListener('change', onFormClick);
   addEffect();
 };

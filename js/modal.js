@@ -39,7 +39,6 @@ const renderGallery = (picture) => {
       const postData = picture.find((post) => post.id === postId);
       evt.preventDefault();
 
-
       createPictureModal(postData);
     }
   });
