@@ -1,27 +1,26 @@
 import { isEscapeKey } from './utils.js';
 import { createPictureModal, moreButton, onMoreButtonClick } from './gallery-modal.js';
+import { openModal, closeModal } from './popup.js';
+
 
 const posts = document.querySelector('.pictures');
 const modal = document.querySelector('.big-picture');
-const closeModal = modal.querySelector('.big-picture__cancel');
+const buttonCloseModal = modal.querySelector('.big-picture__cancel');
+const body = document.querySelector('body');
+
 
 const onCloseButtonClick = () => {
-  modal.classList.add('hidden');
-  closeModal.removeEventListener('click', onCloseButtonClick);
+  closeModal(modal, body);
+  buttonCloseModal.removeEventListener('click', onCloseButtonClick);
   moreButton.removeEventListener('click', onMoreButtonClick);
-
-
-  document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKey);
 };
 
 
 const onLinkClick = () => {
-  modal.classList.remove('hidden');
+  openModal(modal, body);
   document.addEventListener('keydown', onDocumentKey);
-  closeModal.addEventListener('click', onCloseButtonClick);
-
-  document.body.classList.add('modal-open');
+  buttonCloseModal.addEventListener('click', onCloseButtonClick);
 };
 
 function onDocumentKey (evt) {

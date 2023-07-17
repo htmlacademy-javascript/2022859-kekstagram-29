@@ -1,7 +1,7 @@
 import { isEscapeKey } from '../utils.js';
 import { resetScaleValue } from './scale.js';
 import { hidenSlider, addEffect, removeEffects } from './slider.js';
-
+import { openModal, closeModal } from '../popup.js';
 const submitButton = document.querySelector('.img-upload__submit');
 const bodyElement = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -82,17 +82,13 @@ const onCloseButtonClick = () => {
   pristine.reset();
   removeEffects();
   resetScaleValue();
-  formElement.classList.add('hidden');
-
-  bodyElement.classList.remove('modal-open');
+  closeModal(formElement, bodyElement);
   document.removeEventListener('keydown', onDocumentKey);
 };
 
 const onFormClick = () => {
   hidenSlider();
-  formElement.classList.remove('hidden');
-
-  bodyElement.classList.add('modal-open');
+  openModal(formElement, bodyElement);
   document.addEventListener('keydown', onDocumentKey);
   closeForm.addEventListener('click', onCloseButtonClick);
 };
@@ -120,8 +116,13 @@ function onDocumentKey (evt) {
 }
 
 const initImage = () => {
-  form.addEventListener('submit', () => {
-    pristine.validate();
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      // console.log('Отправить');
+    }
   });
   input.addEventListener('change', onFormClick);
   addEffect();
