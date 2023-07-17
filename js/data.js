@@ -40,13 +40,6 @@ const getCommentText = () => Array.from({length: getRandomInteger(1, 3)}, () => 
 
 
 // Comments
-
-// const createComment = () => ({
-//   id: generateCommentsId(),
-//   avatar: `img/avatar-${getRandomInteger(1,6)}.svg`,
-//   message: `${getCommentText()}`,
-//   name: `${getRandomArrayElement(NAMES)}`,
-// });
 const generateCommentsId = createRandomIdFromRangeGenerator(1, 1000);
 const createComment = () => ({
   id: generateCommentsId(),
@@ -67,6 +60,6 @@ const createPost = () => ({
   comments: Array.from({ length: getRandomInteger(0, 30) }, createComment)
 });
 
-const postsData = Array.from({ length: POST_COUNT }, createPost);
+const createPostsData = () => Array.from({ length: POST_COUNT }, createPost);
 
-export { postsData };
+export { createPostsData };
