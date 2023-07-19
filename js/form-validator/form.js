@@ -96,7 +96,6 @@ const toggleSubmit = (isDisabled) => {
   submitButton.disabled = isDisabled;
   submitButton.textContent = isDisabled ? SubmitButtonText.LOADING : SubmitButtonText.DEFAULT;
 };
-
 const setFormSubmit = (onSuccess) => {
   form.addEventListener('submit', async(evt) => {
     evt.preventDefault();
