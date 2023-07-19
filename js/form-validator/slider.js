@@ -45,6 +45,7 @@ const removeEffects = () => {
   if (sliderElement.noUiSlider) {
     sliderElement.noUiSlider.destroy();
   }
+
   hidenSlider();
   modalImage.style.filter = 'none';
 };
