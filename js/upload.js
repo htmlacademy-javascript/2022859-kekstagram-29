@@ -1,7 +1,7 @@
 import { isEscapeKey } from './utils.js';
 import { resetScaleValue } from './form-validator/scale.js';
 import { hidenSlider, removeEffects } from './form-validator/slider.js';
-import { pristineReset, cancellationOfSending } from './form-validator/form.js';
+import { pristineReset, isElementFocused } from './form-validator/form.js';
 
 const bodyElement = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -18,15 +18,8 @@ const closeModalForm = () => {
   document.removeEventListener('keydown', onDocumentKey);
 };
 
-function onDocumentKey (evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeModalForm();
-    cancellationOfSending();
-  }
-}
-
 const onClickButtonClose = () => closeModalForm();
+
 
 const openModalForm = () => {
   hidenSlider();
@@ -35,5 +28,15 @@ const openModalForm = () => {
   document.addEventListener('keydown', onDocumentKey);
   closeForm.addEventListener('click', onClickButtonClose);
 };
+
+
+function onDocumentKey (evt) {
+  const error = document.querySelector('.error');
+  if (isEscapeKey(evt) && !isElementFocused() && !error) {
+    evt.preventDefault();
+    closeModalForm();
+  }
+}
+
 
 export { openModalForm, closeModalForm };

@@ -69,7 +69,7 @@ const addEffect = () => {
       connect: 'lower',
       format: {
         to: (value) => value,
-        from: (value) => parseFloat(value, 10)
+        from: (value) => parseFloat(value, 1)
       }
     });
 
