@@ -7,7 +7,7 @@ let currentFilter = Filters.DEFAULT;
 const SHOW_PICTURE = 10;
 const filters = document.querySelector('.img-filters');
 
-let todos = [];
+let pictures = [];
 
 const sortRandom = () => Math.random() - 1;
 const sortComments = (picturesA, picturesB) => picturesB.comments.length - picturesA.comments.length;
@@ -15,11 +15,11 @@ const sortComments = (picturesA, picturesB) => picturesB.comments.length - pictu
 const getFilter = () => {
   switch(currentFilter) {
     case Filters.RANDOM:
-      return [...todos].sort(sortRandom).slice(0, SHOW_PICTURE);
+      return [...pictures].sort(sortRandom).slice(0, SHOW_PICTURE);
     case Filters.DISCUSSED:
-      return [...todos].sort(sortComments);
+      return [...pictures].sort(sortComments);
     case Filters.DEFAULT:
-      return [...todos];
+      return [...pictures];
   }
 };
 
@@ -42,7 +42,7 @@ const filterClick = (callback) => {
 
 const initFilters = (loader, callback) => {
   filters.classList.remove('img-filters--inactive');
-  todos = [...loader];
+  pictures = [...loader];
   filterClick(callback);
 };
 
