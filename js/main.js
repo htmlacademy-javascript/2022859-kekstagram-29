@@ -1,5 +1,5 @@
-import { renderThumbnail } from './gallery.js';
-import { renderGallery } from './modal.js';
+import { renderThumbnails } from './gallery.js';
+import { renderModal } from './modal.js';
 import { setFormSubmit } from './form-validator/form.js';
 import { getData, sendData } from './api.js';
 import { debounce, showAlert } from './utils.js';
@@ -19,10 +19,10 @@ setFormSubmit(async (data) => {
 
 try {
   const data = await getData();
-  const debounceGallery = debounce(renderThumbnail);
+  const debounceGallery = debounce(renderThumbnails);
   initFilters(data, debounceGallery);
-  renderThumbnail(data);
-  renderGallery(data);
+  renderThumbnails(data);
+  renderModal(data);
 } catch (err) {
   showAlert(err.message);
 }

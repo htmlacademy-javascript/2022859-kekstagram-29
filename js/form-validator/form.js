@@ -1,4 +1,3 @@
-import { addEffect} from './slider.js';
 import { openModalForm } from '../upload.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
@@ -113,7 +112,6 @@ const setFormSubmit = (onSuccess) => {
     }
     onClickButtonForm();
   });
-  addEffect();
 };
 
 export { setFormSubmit, pristineReset, isElementFocused };

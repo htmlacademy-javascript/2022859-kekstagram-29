@@ -46,4 +46,4 @@ const initFilters = (loader, callback) => {
   filterClick(callback);
 };
 
-export { initFilters };
+export { initFilters, getFilter };
