@@ -65,11 +65,7 @@ const createSlider = (effect) => {
     },
     start: max,
     step: step,
-    connect: 'lower',
-    format: {
-      to: (value) => value,
-      from: (value) => parseFloat(value, 10)
-    }
+    connect: 'lower'
   });
 
   sliderElement.noUiSlider.on('update', () => {
