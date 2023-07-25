@@ -58,10 +58,23 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const TIMEOUT_DELAY = 500;
+
+const debounce = (callback) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), TIMEOUT_DELAY);
+  };
+};
+
+
 export { createRandomIdFromRangeGenerator,
   getRandomArrayElement,
   getRandomInteger,
   isEscapeKey,
   createElemet,
-  showAlert
+  showAlert,
+  debounce
 };

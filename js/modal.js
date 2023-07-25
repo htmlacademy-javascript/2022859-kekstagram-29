@@ -30,13 +30,13 @@ function onDocumentKey (evt) {
   }
 }
 
-const renderGallery = (picture) => {
+const renderModal = (pictures) => {
   posts.addEventListener('click', (evt) => {
     const target = evt.target.closest('.picture');
     let postId;
     if (target !== null) {
       postId = Number(target.dataset.id);
-      const postData = picture.find((post) => post.id === postId);
+      const postData = pictures.find((post) => post.id === postId);
       evt.preventDefault();
 
       createPictureModal(postData);
@@ -45,4 +45,4 @@ const renderGallery = (picture) => {
 };
 
 
-export { onLinkClick, renderGallery };
+export { onLinkClick, renderModal };
