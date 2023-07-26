@@ -1,16 +1,8 @@
 import { openModalForm } from '../upload.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
-const submitButton = document.querySelector('.img-upload__submit');
-const form = document.querySelector('.img-upload__form');
-const input = form.querySelector('.img-upload__input');
-const hashtag = form.querySelector('.text__hashtags');
-const description = form.querySelector('.text__description');
-const preview = document.querySelector('.img-upload__preview img');
-const effects = document.querySelectorAll('.effects__preview');
 const VALID_SYMBOLS = /^#[a-zа-я0-9]{1,19}$/i;
 const MAX_COUNT_HASHTAGS = 5;
-const normalizeString = (str) => str.trim().split(' ').filter((tag) => Boolean(tag.length));
 const VALIDATOR_PARAMS = {
   hashtagSymbols: {
     isValid: (value) => normalizeString(value).every((tag) => VALID_SYMBOLS.test(tag)),
@@ -36,8 +28,17 @@ const SubmitButtonText = {
   DEFAULT: 'Отправить',
   LOADING: 'Отправляю...'
 };
+const submitButton = document.querySelector('.img-upload__submit');
+const form = document.querySelector('.img-upload__form');
+const input = form.querySelector('.img-upload__input');
+const hashtag = form.querySelector('.text__hashtags');
+const description = form.querySelector('.text__description');
+const preview = document.querySelector('.img-upload__preview img');
+const effects = document.querySelectorAll('.effects__preview');
 
-
+function normalizeString (str) {
+  return str.trim().split(' ').filter((tag) => Boolean(tag.length));
+}
 const onClickButtonForm = () => openModalForm();
 
 const pristine = new Pristine(form, {

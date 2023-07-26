@@ -1,10 +1,11 @@
+const PICTURES_COUNT = 10;
 const Filters = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed',
 };
 let currentFilter = Filters.DEFAULT;
-const PICTURES_COUNT = 10;
+
 const filterButtons = document.querySelector('.img-filters');
 
 let pictures = [];
