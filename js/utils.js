@@ -27,7 +27,7 @@ function createRandomIdFromRangeGenerator (min, max) {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const createElemet = (tagName, className, text) => {
+const createElement = (tagName, className, text) => {
   const element = document.createElement(tagName);
   element.classList.add(className);
 
@@ -37,6 +37,7 @@ const createElemet = (tagName, className, text) => {
 
   return element;
 };
+
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
@@ -74,7 +75,7 @@ export { createRandomIdFromRangeGenerator,
   getRandomArrayElement,
   getRandomInteger,
   isEscapeKey,
-  createElemet,
+  createElement,
   showAlert,
   debounce
 };

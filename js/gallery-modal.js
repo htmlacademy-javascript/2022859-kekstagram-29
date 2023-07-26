@@ -1,5 +1,5 @@
 import { onLinkClick } from './modal.js';
-import { createElemet } from './utils.js';
+import { createElement } from './utils.js';
 
 const modalImage = document.querySelector('.big-picture__img img');
 const modalLikesCount = document.querySelector('.likes-count');
@@ -7,23 +7,23 @@ const modalCommentsCount = document.querySelector('.comments-count');
 const modalDescription = document.querySelector('.social__caption');
 const moreButton = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
-const showComment = document.querySelector('.comment-show');
+const moreCommentsButton = document.querySelector('.comment-show');
 const countComment = document.querySelector('.comments-count');
 const COMMENTS_TO_SHOW = 5;
 let currentComments = [];
 
 
 const createComment = (avatar, message, name) => {
-  const listItem = createElemet('li', 'social__comment');
-  const image = createElemet('img', 'social__picture');
-  const text = createElemet('p', 'social__text', message);
+  const listItem = createElement('li', 'social__comment');
+  const image = createElement('img', 'social__picture');
+  const text = createElement('p', 'social__text', message);
 
-  const imageSize = 35;
+  const IMAGE_SIZE = 35;
 
   image.src = avatar;
   image.alt = name;
-  image.style.width = `${imageSize}px`;
-  image.style.heigth = `${imageSize}px`;
+  image.style.width = `${IMAGE_SIZE}px`;
+  image.style.heigth = `${IMAGE_SIZE}px`;
 
   listItem.append(image, text);
   return listItem;
@@ -48,13 +48,13 @@ const initMoreComments = () => {
     moreButton.classList.add('hidden');
   }
 
-  showComment.textContent = commentsList.children.length;
+  moreCommentsButton.textContent = commentsList.children.length;
   countComment.textContent = currentComments.length;
 };
 
 const onMoreButtonClick = () => initMoreComments();
 
-const initPartComments = (comments) => {
+const showPartComments = (comments) => {
   const toShowComments = comments.slice(0, COMMENTS_TO_SHOW);
   const renderFirstComments = renderComments(toShowComments);
 
@@ -66,7 +66,7 @@ const initPartComments = (comments) => {
   }
 
   commentsList.append(renderFirstComments);
-  showComment.textContent = toShowComments.length;
+  moreCommentsButton.textContent = toShowComments.length;
   countComment.textContent = comments.length;
 };
 
@@ -79,7 +79,7 @@ const createPictureModal = (data) => {
 
   commentsList.innerHTML = '';
   currentComments = comments;
-  initPartComments(comments);
+  showPartComments(comments);
   onLinkClick(data);
 };
 
