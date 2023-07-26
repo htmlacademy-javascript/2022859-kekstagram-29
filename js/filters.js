@@ -4,8 +4,8 @@ const Filters = {
   DISCUSSED: 'filter-discussed',
 };
 let currentFilter = Filters.DEFAULT;
-const SHOW_PICTURE = 10;
-const filters = document.querySelector('.img-filters');
+const PICTURES_COUNT = 10;
+const filterButtons = document.querySelector('.img-filters');
 
 let pictures = [];
 
@@ -15,7 +15,7 @@ const sortComments = (picturesA, picturesB) => picturesB.comments.length - pictu
 const getFilter = () => {
   switch(currentFilter) {
     case Filters.RANDOM:
-      return [...pictures].sort(sortRandom).slice(0, SHOW_PICTURE);
+      return [...pictures].sort(sortRandom).slice(0, PICTURES_COUNT);
     case Filters.DISCUSSED:
       return [...pictures].sort(sortComments);
     case Filters.DEFAULT:
@@ -23,8 +23,8 @@ const getFilter = () => {
   }
 };
 
-const filterClick = (callback) => {
-  filters.addEventListener('click', (evt) => {
+const onContainerButtonClick = (callback) => {
+  filterButtons.addEventListener('click', (evt) => {
     if (!evt.target.classList.contains('img-filters__button')) {
       return;
     }
@@ -33,7 +33,7 @@ const filterClick = (callback) => {
     if (target.id === currentFilter) {
       return;
     }
-    filters.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+    filterButtons.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
     target.classList.add('img-filters__button--active');
     currentFilter = target.id;
     callback(getFilter());
@@ -41,9 +41,9 @@ const filterClick = (callback) => {
 };
 
 const initFilters = (loader, callback) => {
-  filters.classList.remove('img-filters--inactive');
+  filterButtons.classList.remove('img-filters--inactive');
   pictures = [...loader];
-  filterClick(callback);
+  onContainerButtonClick(callback);
 };
 
 export { initFilters, getFilter };

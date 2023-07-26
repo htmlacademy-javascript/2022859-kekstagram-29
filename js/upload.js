@@ -6,7 +6,7 @@ import { pristineReset, isElementFocused } from './form-validator/form.js';
 const bodyElement = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
 const formElement = form.querySelector('.img-upload__overlay');
-const closeForm = form.querySelector('.img-upload__cancel');
+const closeFormButton = form.querySelector('.img-upload__cancel');
 const effectList = form.querySelector('.effects__list');
 const currentEffect = effectList.querySelector('input:checked').value;
 
@@ -17,7 +17,7 @@ const closeModalForm = () => {
   formElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKey);
-  closeForm.removeEventListener('click', closeModalForm);
+  closeFormButton.removeEventListener('click', closeModalForm);
   initEffect(currentEffect);
 };
 
@@ -29,7 +29,7 @@ const openModalForm = () => {
   formElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKey);
-  closeForm.addEventListener('click', onClickButtonClose);
+  closeFormButton.addEventListener('click', onClickButtonClose);
   effectList.addEventListener('change', onEffectClick);
 };
 
