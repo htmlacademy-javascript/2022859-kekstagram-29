@@ -39,6 +39,7 @@ const effects = document.querySelectorAll('.effects__preview');
 function normalizeString (str) {
   return str.trim().split(' ').filter((tag) => Boolean(tag.length));
 }
+
 const onClickButtonForm = () => openModalForm();
 
 const pristine = new Pristine(form, {

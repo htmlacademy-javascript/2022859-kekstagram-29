@@ -2,6 +2,7 @@ import { onLinkClick } from './modal.js';
 import { createElement } from './utils.js';
 
 const COMMENTS_TO_SHOW = 5;
+const IMAGE_SIZE = 35;
 const modalImage = document.querySelector('.big-picture__img img');
 const modalLikesCount = document.querySelector('.likes-count');
 const modalCommentsCount = document.querySelector('.comments-count');
@@ -18,8 +19,6 @@ const createComment = (avatar, message, name) => {
   const listItem = createElement('li', 'social__comment');
   const image = createElement('img', 'social__picture');
   const text = createElement('p', 'social__text', message);
-
-  const IMAGE_SIZE = 35;
 
   image.src = avatar;
   image.alt = name;
